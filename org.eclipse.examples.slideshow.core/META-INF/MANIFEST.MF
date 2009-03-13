@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Slideshow Core Plug-in
+Bundle-SymbolicName: org.eclipse.examples.slideshow.core
+Bundle-Version: 0.2.0.qualifier
+Bundle-Vendor: The Eclipse Foundation
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.examples.slideshow.core
