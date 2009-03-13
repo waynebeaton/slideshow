@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Slideshow Text Tests Fragment
+Bundle-SymbolicName: org.eclipse.examples.slideshow.text.tests
+Bundle-Version: 0.2.0.qualifier
+Bundle-Vendor: The Eclipse Foundation
+Fragment-Host: org.eclipse.examples.slideshow.text;bundle-version="[0.1.0,1.0.0)"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.junit4;bundle-version="4.3.1"

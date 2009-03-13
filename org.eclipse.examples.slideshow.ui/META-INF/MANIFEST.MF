@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Slideshow UI
+Bundle-SymbolicName: org.eclipse.examples.slideshow.ui; singleton:=true
+Bundle-Version: 0.2.0.qualifier
+Bundle-Activator: org.eclipse.examples.slideshow.ui.Activator
+Bundle-Vendor: The Eclipse Foundation
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors,
+ org.eclipse.examples.slideshow.core;bundle-version="0.1.0",
+ org.eclipse.examples.slideshow.text;bundle-version="0.1.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.draw2d,
+ org.eclipse.draw2d.geometry,
+ org.eclipse.examples.slideshow.rendering,
+ org.eclipse.examples.slideshow.resources,
+ org.eclipse.examples.slideshow.runner,
+ org.eclipse.examples.slideshow.templates.eclipse,
+ org.eclipse.examples.slideshow.viewer,
+ org.eclipse.ui.part

@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Slideshow JDT Plug-in
+Bundle-SymbolicName: org.eclipse.examples.slideshow.jdt;singleton:=true
+Bundle-Version: 0.2.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.core.runtime.jobs,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.core.formatter,
+ org.eclipse.jface.text,
+ org.eclipse.text.edits,
+ org.osgi.framework,
+ org.osgi.service.url
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.ui;bundle-version="3.4.1"
+Bundle-Activator: org.eclipse.examples.slideshow.jdt.Activator
