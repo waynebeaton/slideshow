@@ -1,0 +1,13 @@
+{Copyright:Copyright © 2008 Eclipse Foundation, Inc., Made available under the Eclipse Public License v 1.0}
+==toString() Generator==
+Stuff goes here [[Image:beatons-100x75.jpg]]
+*Mateusz Matela
+**Mentored by Markus Alexander Kuppe
+***Things
+*Planned part of JDT waiting to be release to HEAD
+**Currently under review by the JDT team. Now is the time for all good men to come to the aid of the party.
+*#blah
+*#More blah
+*More information:
+**Project info: http://wiki.eclipse.org/ToString()_generation
+**Source: https://bugs.eclipse.org/bugs/show_bug.cgi?id=26070
