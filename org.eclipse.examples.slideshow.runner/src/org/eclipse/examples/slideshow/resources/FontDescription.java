@@ -73,4 +73,8 @@ public class FontDescription {
 	public FontDescription withStyle(int style) {
 		return new FontDescription(face, height, this.style | style);
 	}
+
+	public FontDescription sizedBy(int percent) {
+		return this.sizedTo(getHeight() * percent / 100);
+	}
 }
