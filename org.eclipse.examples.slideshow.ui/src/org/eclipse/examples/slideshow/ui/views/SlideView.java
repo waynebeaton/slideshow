@@ -219,7 +219,7 @@ public class SlideView extends ViewPart {
 		};
 		runAction.setText("Run Slideshow");
 		runAction.setToolTipText("Run the Slideshow full screen");
-		runAction.setImageDescriptor(Activator.getImageDescriptor("icons/video-display.png"));
+		runAction.setImageDescriptor(Activator.getImageDescriptor("icons/console_view.gif"));
 	}
 
 	private void createPrintAction() {
@@ -230,7 +230,7 @@ public class SlideView extends ViewPart {
 		};
 		printAction.setText("Print Slideshow");
 		printAction.setToolTipText("Prints the current Slideshow");
-		printAction.setImageDescriptor(Activator.getImageDescriptor("icons/document-print.png"));
+		printAction.setImageDescriptor(Activator.getImageDescriptor("icons/print_edit.gif"));
 	}
 
 	private void createRefreshAction() {
@@ -241,7 +241,7 @@ public class SlideView extends ViewPart {
 		};
 		refreshAction.setText("Refresh");
 		refreshAction.setToolTipText("Redraws the current slide");
-		refreshAction.setImageDescriptor(Activator.getImageDescriptor("icons/view-refresh.png"));
+		refreshAction.setImageDescriptor(Activator.getImageDescriptor("icons/refresh.gif"));
 	}
 	
 	private void contributeToActionBars() {
