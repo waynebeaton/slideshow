@@ -11,8 +11,6 @@
 package org.eclipse.examples.slideshow.figures;
 
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.GridData;
@@ -33,13 +31,10 @@ import org.eclipse.examples.slideshow.core.ListItemContent;
 import org.eclipse.examples.slideshow.core.SpanChunk;
 import org.eclipse.examples.slideshow.core.TextChunk;
 import org.eclipse.examples.slideshow.core.TextContent;
-import org.eclipse.examples.slideshow.rendering.util.FigureSizer;
-import org.eclipse.examples.slideshow.rendering.util.GridLayoutSizer;
-import org.eclipse.examples.slideshow.rendering.util.ResizeableImageFigureSizer;
-import org.eclipse.examples.slideshow.rendering.util.TextFigureSizer;
 import org.eclipse.examples.slideshow.resources.FontDescription;
 import org.eclipse.examples.slideshow.resources.ResourceManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -67,14 +62,6 @@ public class ListFigure extends Figure implements IResizeableFigure {
 
 	static final int MAX_BULLET_DEPTH = 10;
 		
-	/**
-	 * As the layout is created, those elements that are sizeable, are wrapped
-	 * up into an appropriate {@link FigureSizer} and added to this {@link List}.
-	 * 
-	 * @see FigureSizer
-	 */
-	private ArrayList<FigureSizer> figureSizers = new ArrayList<FigureSizer>();
-
 	private final ResourceManager resourceManager;
 
 	private IContent[] content;
@@ -107,14 +94,13 @@ public class ListFigure extends Figure implements IResizeableFigure {
 	 */
 	void rebuild() {
 		removeAll();
-		figureSizers.clear();
-		
 		if (content == null) return;
 		if (getFontDescription() == null) return;
 		
 		GridLayout manager = new GridLayout(getMaximumBulletDepth(), false);
-		figureSizers.add(new GridLayoutSizer(manager, getFontDescription().getHeight() /4));
+		manager.verticalSpacing = getFontDescription().getHeight() /4;
 		setLayoutManager(manager);
+		
 		layoutFigures(this, 0, content);
 	}
 	
@@ -151,12 +137,18 @@ public class ListFigure extends Figure implements IResizeableFigure {
 				parent.add(new Figure());
 			}
 			
+			/*
+			 * Obtain the font that we're going to use for the bullet and the
+			 * text. Note that the resource manager is going to take care of
+			 * managing the lifecycle of the Font.
+			 */
+			Font font = getResourceManager().getFont(getFontDescription().sizedBy(scale));
+			
 			// Create the bullet
 			Label bullet = new Label("\u2022");
+			bullet.setFont(font);
 			parent.getLayoutManager().setConstraint(bullet, new GridData(SWT.RIGHT, SWT.TOP, false, false));
 			parent.add(bullet);
-			
-			figureSizers.add(new TextFigureSizer(getResourceManager(), bullet, getFontDescription(), getScale()));
 			
 			IFigure text = createFlowPage(item);
 			parent.getLayoutManager().setConstraint(text, new GridData(SWT.FILL, SWT.TOP, true, false, ((GridLayout)parent.getLayoutManager()).numColumns - depth - 1, 1));
@@ -209,7 +201,7 @@ public class ListFigure extends Figure implements IResizeableFigure {
 	private void addTextChunk(BlockFlow blockFlow, TextChunk chunk, FontDescription fontDescription) {
 		TextFlow textFlow = new TextFlow(chunk.getText());
 		blockFlow.add(textFlow);
-		figureSizers.add(new TextFigureSizer(getResourceManager(), textFlow, fontDescription, getScale()));
+		textFlow.setFont(getResourceManager().getFont(fontDescription.sizedBy(scale)));
 	}
 
 	private void addImageChunk(BlockFlow blockFlow, ImageChunk chunk) {
@@ -220,12 +212,11 @@ public class ListFigure extends Figure implements IResizeableFigure {
 			image = getResourceManager().getPlaceholderImage();
 		}
 		ResizeableImageFigure figure = new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight());
+		figure.setScale(scale);
 		FlowAdapter adapter = new FlowAdapter();
 		adapter.setLayoutManager(new StackLayout());
 		adapter.add(figure);
 		blockFlow.add(adapter);
-		
-		figureSizers.add(new ResizeableImageFigureSizer(figure, scale));
 	}
 
 	private void addSpanChunk(BlockFlow blockFlow, SpanChunk chunk, FontDescription fontDescription) {
@@ -255,11 +246,7 @@ public class ListFigure extends Figure implements IResizeableFigure {
 
 	public void setScale(int scale) {
 		this.scale = scale;
-		for (FigureSizer sizer : figureSizers) {
-			sizer.resizeTo(scale);
-		}
-		invalidateTree();
-		layout();
+		rebuild();
 	}
 
 	public int getScale() {
