@@ -7,7 +7,7 @@
       <editor
             name="Slideshow Editor"
             extensions="show"
-            icon="icons/sample.gif"
+            icon="icons/presentation.png"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             class="org.eclipse.examples.slideshow.ui.editors.SlideshowEditor"
             id="org.eclipse.examples.slideshow.ui.editors.SlideshowEditor">
@@ -22,7 +22,7 @@
       <view
             category="org.eclipse.examples.slideshow.ui"
             class="org.eclipse.examples.slideshow.ui.views.SlideView"
-            icon="icons/x-office-presentation.png"
+            icon="icons/presentation.png"
             id="org.eclipse.examples.slideshow.ui.views.SlideView"
             name="Slide View">
       </view>
