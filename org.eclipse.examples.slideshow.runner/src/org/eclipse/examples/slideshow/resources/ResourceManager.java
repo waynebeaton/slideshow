@@ -12,18 +12,17 @@ package org.eclipse.examples.slideshow.resources;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.printing.Printer;
 
 /**
  * Instances of the {@link ResourceManager} class handling the allocation (and
@@ -56,9 +55,6 @@ public class ResourceManager {
 		Font font = fontRegistry.get(description);
 		if (font != null) return font;
 		
-		// TODO DPI value answered by GTK not correct. See Printer#getDPI()
-		// TODO Shouldn't have to screw around with dpi. Does this work on Windows?
-		int dpi = device instanceof Printer ? 300 : device.getDPI().x;
 		int height = description.getHeight();
 		font = new Font(device, description.getName(), height, description.getStyle());
 		fontRegistry.put(description, font);
@@ -79,8 +75,23 @@ public class ResourceManager {
 		imageRegistry.clear();
 	}
 
-	// TODO Consider threading issues
-	public Image getImage(URL url) {
+	/**
+	 * This method obtains the image found at the location described by
+	 * {@link URL}.
+	 * 
+	 * @param url
+	 *            location of the image.
+	 * @return an instance of {@link Image}
+	 * @throws IOException
+	 *             if the {@link URL} is invalid, or other stream-related
+	 *             exception occurs.
+	 * @throws InvalidImageException
+	 *             if the attempt to obtain the image results in an
+	 *             {@link SWTException} (most likely as a result of an
+	 *             unsupported format, or missing image).
+	 */
+	public Image getImage(URL url) throws IOException, InvalidImageException {
+		// TODO Consider threading issues
 		String key = url.toString();
 		Image image = imageRegistry.get(key);
 		if (image != null) return image;
@@ -91,18 +102,18 @@ public class ResourceManager {
 			in = connection.getInputStream();
 			image = new Image(device, in);
 			imageRegistry.put(key, image);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (SWTException e) {
+			throw new InvalidImageException(e);
 		} finally {
 			try {
 				if (in != null) in.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				/*
+				 * Only throw the exception if we were unsuccessful in obtaining an image.
+				 * I'm not sure under which conditions this might happen, but handle it
+				 * anyway.
+				 */
+				if (image == null) throw e;
 			}
 		}
 		

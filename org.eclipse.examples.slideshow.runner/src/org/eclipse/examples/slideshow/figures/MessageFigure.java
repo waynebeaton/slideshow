@@ -11,15 +11,26 @@
 package org.eclipse.examples.slideshow.figures;
 
 import org.eclipse.draw2d.Label;
+import org.eclipse.examples.slideshow.resources.FontDescription;
+import org.eclipse.examples.slideshow.resources.ResourceManager;
 
 public class MessageFigure extends Label implements IResizeableFigure {
-	public MessageFigure(String message) {
+	private final ResourceManager resourceManager;
+	private final FontDescription fontDescription;
+
+	public MessageFigure(ResourceManager resourceManager, FontDescription fontDescription, String message) {
+		this(resourceManager, fontDescription, message, 100);
+	}
+	
+	public MessageFigure(ResourceManager resourceManager, FontDescription fontDescription, String message, int scale) {
+		this.resourceManager = resourceManager;
+		this.fontDescription = fontDescription;
 		this.setText(message);
+		setScale(scale);
 	}
 
 	public void setScale(int percent) {
-		// TODO Auto-generated method stub
-
+		setFont(resourceManager.getFont(fontDescription.sizedBy(percent)));
 	}
 
 }

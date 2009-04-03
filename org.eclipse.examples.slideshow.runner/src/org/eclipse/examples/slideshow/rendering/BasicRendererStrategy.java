@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.examples.slideshow.rendering;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +87,8 @@ public class BasicRendererStrategy extends RendererStrategy {
 	}
 
 	protected void makeTextColumnFit(ListFigure textColumn, IFigure parent) {
+		if (textColumn.getScale() <= 25) 
+			return;
 		Rectangle parentBounds = parent.getBounds();
 		int scale = 100;
 		while (true) {
@@ -327,7 +328,7 @@ public class BasicRendererStrategy extends RendererStrategy {
 		if (chunk instanceof CodeBlockChunk) return createFigure((CodeBlockChunk)chunk);
 		
 		// TODO Return a placeholder instead.
-		return new MessageFigure("Unknown content type.");
+		return new MessageFigure(getResourceManager(), contentAreaRenderer.getDefaultFontDescription(), "Unknown content type:" + chunk.getClass());
 	}
 	
 	IResizeableFigure createFigure(CodeBlockChunk chunk) {
@@ -342,8 +343,10 @@ public class BasicRendererStrategy extends RendererStrategy {
 			ResizeableImageFigure figure = new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight());
 			//figure.setBorder(new LineBorder());
 			return figure;
-		} catch (MalformedURLException e) {
-			return new MessageFigure(e.getMessage());
+		} catch (Exception e) {
+			MessageFigure figure = new MessageFigure(getResourceManager(), contentAreaRenderer.getDefaultFontDescription(), e.getMessage());
+			figure.setBackgroundColor(getResourceManager().getSystemColor(SWT.COLOR_RED));
+			return figure;
 		}
 	}
 
