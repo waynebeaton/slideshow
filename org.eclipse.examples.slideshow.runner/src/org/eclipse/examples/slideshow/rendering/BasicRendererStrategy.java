@@ -339,13 +339,12 @@ public class BasicRendererStrategy extends RendererStrategy {
 
 	IResizeableFigure createFigure(ImageChunk chunk) {
 		try {
-			Image image = getResourceManager().getImage(chunk.getFullUrl());
+			Image image = getResourceManager().getImage(chunk.getBaseUrl(), chunk.getUrl());
 			ResizeableImageFigure figure = new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight());
 			//figure.setBorder(new LineBorder());
 			return figure;
 		} catch (Exception e) {
-			MessageFigure figure = new MessageFigure(getResourceManager(), contentAreaRenderer.getDefaultFontDescription(), e.getMessage());
-			figure.setBackgroundColor(getResourceManager().getSystemColor(SWT.COLOR_RED));
+			MessageFigure figure = new MessageFigure(getResourceManager(), contentAreaRenderer.getDefaultFontDescription(), e.toString());
 			return figure;
 		}
 	}

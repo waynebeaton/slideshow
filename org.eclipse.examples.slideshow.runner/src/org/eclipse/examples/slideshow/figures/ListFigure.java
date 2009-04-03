@@ -224,10 +224,10 @@ public class ListFigure extends Figure implements IResizeableFigure {
 	 */
 	private IResizeableFigure createImageFigure(ImageChunk chunk) {
 		try {
-			Image image = getResourceManager().getImage(chunk.getFullUrl());
+			Image image = getResourceManager().getImage(chunk.getBaseUrl(), chunk.getUrl());
 			return new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight(), scale);
 		} catch (Exception e) {
-			MessageFigure figure = new MessageFigure(getResourceManager(), getFontDescription(), e.getMessage(), scale);
+			MessageFigure figure = new MessageFigure(getResourceManager(), getFontDescription(), e.toString(), scale);
 			figure.setBorder(new LineBorder());
 			return figure;
 		}
