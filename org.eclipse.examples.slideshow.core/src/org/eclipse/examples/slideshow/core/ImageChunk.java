@@ -62,12 +62,7 @@ public class ImageChunk extends BlockChunk {
 		return url;
 	}
 
-	public URL getFullUrl() throws MalformedURLException {
-		if (getBaseUrl() == null) return new URL(url);
-		return new URL(getBaseUrl(), getUrl());
-	}
-
-	URL getBaseUrl() {
+	public URL getBaseUrl() {
 		return getSlideDeck().getBaseUrl();
 	}
 
