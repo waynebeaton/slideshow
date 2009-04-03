@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.examples.slideshow.figures;
 
-import java.net.MalformedURLException;
-
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.GridData;
 import org.eclipse.draw2d.GridLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.text.BlockFlow;
@@ -204,19 +203,34 @@ public class ListFigure extends Figure implements IResizeableFigure {
 		textFlow.setFont(getResourceManager().getFont(fontDescription.sizedBy(scale)));
 	}
 
-	private void addImageChunk(BlockFlow blockFlow, ImageChunk chunk) {
-		Image image;
-		try {
-			image = getResourceManager().getImage(chunk.getFullUrl());
-		} catch (MalformedURLException e) {
-			image = getResourceManager().getPlaceholderImage();
-		}
-		ResizeableImageFigure figure = new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight());
-		figure.setScale(scale);
+	private void addImageChunk(BlockFlow blockFlow, ImageChunk chunk) {	
+		IResizeableFigure figure = createImageFigure(chunk);	
+	
 		FlowAdapter adapter = new FlowAdapter();
 		adapter.setLayoutManager(new StackLayout());
 		adapter.add(figure);
 		blockFlow.add(adapter);
+	}
+
+	/**
+	 * Create a figure for the image. The resulting figure will be a
+	 * {@link ResizeableImageFigure} if the image referred to by the parameter
+	 * is a valid image. If the image is not valid, the returned figure will be
+	 * an instance of MessageFigure containing a message describing the error.
+	 * 
+	 * @param chunk
+	 *            instance of {@link ImageChunk}
+	 * @return an instance of an implementor of {@link IResizeableFigure}.
+	 */
+	private IResizeableFigure createImageFigure(ImageChunk chunk) {
+		try {
+			Image image = getResourceManager().getImage(chunk.getFullUrl());
+			return new ResizeableImageFigure(image, chunk.getWidth(), chunk.getHeight(), scale);
+		} catch (Exception e) {
+			MessageFigure figure = new MessageFigure(getResourceManager(), getFontDescription(), e.getMessage(), scale);
+			figure.setBorder(new LineBorder());
+			return figure;
+		}
 	}
 
 	private void addSpanChunk(BlockFlow blockFlow, SpanChunk chunk, FontDescription fontDescription) {

@@ -28,13 +28,18 @@ public class ResizeableImageFigure extends Figure implements IResizeableFigure {
 	}
 
 	public ResizeableImageFigure(Image image, int width, int height) {
+		this (image, width, height, 100);
+	}
+	
+	public ResizeableImageFigure(Image image, int width, int height, int scale) {
 		this.image = image;
 		this.width = width == -1 ? image.getBounds().width : width;
 		this.height = height == -1 ? image.getBounds().height : height;
 		this.scale = 100;
 		this.imageBounds = new Rectangle(0,0,image.getBounds().width, image.getBounds().height);
+		this.scale = scale;
 	}
-	
+
 	@Override
 	public Dimension getPreferredSize(int widthHint, int heightHint) {
 		return new Dimension(width*scale/100, height*scale/100);
