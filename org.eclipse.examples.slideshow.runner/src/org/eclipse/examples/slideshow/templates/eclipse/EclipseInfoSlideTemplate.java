@@ -25,8 +25,10 @@ import org.eclipse.swt.graphics.Font;
 
 public class EclipseInfoSlideTemplate implements ITemplate {
 	private EclipseInfoSlideBackground background;
+	private final Device device;
 
 	public EclipseInfoSlideTemplate(Device device) {
+		this.device = device;
 		background = new EclipseInfoSlideBackground(device);
 	}
 		
@@ -34,7 +36,7 @@ public class EclipseInfoSlideTemplate implements ITemplate {
 		background.renderOn(resourceManager, root, slide);
 		
 		Label titleFigure = new Label(slide.getTitle());
-		//titleFigure.setBorder(new LineBorder());
+		titleFigure.setForegroundColor(device.getSystemColor(SWT.COLOR_BLACK));
 		Rectangle titleBounds = new Rectangle(25,25,1024-50, 75);
 		titleFigure.setBounds(titleBounds);
 		root.add(titleFigure);

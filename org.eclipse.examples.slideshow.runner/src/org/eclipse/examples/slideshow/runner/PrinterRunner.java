@@ -42,7 +42,8 @@ public class PrinterRunner {
 	public void print(SlideDeck deck) {
 		if (!printer.startJob("blah")) return; // TODO May return false
 		GC gc = new GC(printer);
-		Graphics graphics = new PrinterGraphics(new SWTGraphics(gc), printer);
+		PrinterGraphics graphics = new PrinterGraphics(new SWTGraphics(gc), printer);
+		//graphics.scale();
 		for(Slide slide : deck.getSlides()) {
 			printer.startPage();
 			//gc.setForeground(printer.getSystemColor(SWT.COLOR_BLACK));
@@ -51,7 +52,8 @@ public class PrinterRunner {
 			root.setBorder(new LineBorder());
 			root.setBounds(new Rectangle(0,0,1024,768));
 			template.renderOn(resourceManager, root, slide);
-			new ScalingFigure(root, new Rectangle(printer.getClientArea())).paint(graphics);
+			root.paint(graphics);
+			//new ScalingFigure(root, new Rectangle(printer.getClientArea())).paint(graphics);
 			printer.endPage();
 		}
 		gc.dispose();

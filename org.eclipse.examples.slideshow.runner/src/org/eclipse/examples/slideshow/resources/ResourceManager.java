@@ -173,7 +173,7 @@ public class ResourceManager {
 		InputStream in = null;
 		try {
 			URLConnection connection = url.openConnection();
-			connection.setReadTimeout(500);
+			connection.setReadTimeout(2000);
 			in = connection.getInputStream();
 			return new Image(device, in);
 		} catch (SWTException e) {
