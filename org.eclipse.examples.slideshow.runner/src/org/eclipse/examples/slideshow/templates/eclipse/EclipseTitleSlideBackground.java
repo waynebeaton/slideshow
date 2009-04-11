@@ -51,7 +51,7 @@ public class EclipseTitleSlideBackground implements IBackground {
 		
 		Label copyright = new Label(slide.getCopyright());
 		copyright.setLabelAlignment(PositionConstants.CENTER);
-		copyright.setFont(resourceManager.getFont("Helevetica", 12, SWT.NORMAL));
+		copyright.setFont(resourceManager.getFont("Helvetica", 12, SWT.NORMAL));
 		copyright.setForegroundColor(device.getSystemColor(SWT.COLOR_WHITE));
 		int height = copyright.getPreferredSize().height * 3 / 2;
 		copyright.setBounds(new Rectangle(0, 768-height, 1024, height));
