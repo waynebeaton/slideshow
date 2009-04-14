@@ -202,7 +202,6 @@ public class SlideView extends ViewPart {
 	}
 
 	void setSlide(Slide slide) {
-		Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Ready, set, \"go\"!"));
 		viewer.setSlide(slide);
 	}
 	
