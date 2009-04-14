@@ -10,10 +10,15 @@
  *******************************************************************************/
 package org.eclipse.examples.slideshow.ui.views;
 
+import java.io.FileNotFoundException;
+
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.examples.slideshow.core.Slide;
 import org.eclipse.examples.slideshow.core.SlideDeck;
 import org.eclipse.examples.slideshow.resources.ITemplate;
 import org.eclipse.examples.slideshow.resources.ResourceManager;
+import org.eclipse.examples.slideshow.runner.PDFRunner;
 import org.eclipse.examples.slideshow.runner.ScreenRunner;
 import org.eclipse.examples.slideshow.ui.Activator;
 import org.eclipse.examples.slideshow.ui.ISlideshowTemplateProvider;
@@ -32,6 +37,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
@@ -52,6 +58,7 @@ public class SlideView extends ViewPart {
 	private ComboViewer templateList;
 	private Action printAction;
 	private Action refreshAction;
+	private Action pdfAction;
 
 	public void createPartControl(final Composite parent) {
 		parent.setLayout(new GridLayout(2, false));
@@ -195,6 +202,7 @@ public class SlideView extends ViewPart {
 	}
 
 	void setSlide(Slide slide) {
+		Activator.getDefault().getLog().log(new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Ready, set, \"go\"!"));
 		viewer.setSlide(slide);
 	}
 	
@@ -207,6 +215,7 @@ public class SlideView extends ViewPart {
 	
 	private void makeActions() {
 		createRunAction();
+		createPdfAction();
 		createPrintAction();
 		createRefreshAction();
 	}
@@ -232,6 +241,17 @@ public class SlideView extends ViewPart {
 		printAction.setToolTipText("Prints the current Slideshow");
 		printAction.setImageDescriptor(Activator.getImageDescriptor("icons/print_edit.gif"));
 	}
+	
+	private void createPdfAction() {
+		pdfAction = new Action() {
+			public void run() {
+				exportToPdf();
+			}
+		};
+		pdfAction.setText("Generate PDF");
+		pdfAction.setToolTipText("Renders the current Slideshow into a PDF document");
+		pdfAction.setImageDescriptor(Activator.getImageDescriptor("icons/pdf.gif"));
+	}
 
 	private void createRefreshAction() {
 		refreshAction = new Action() {
@@ -247,6 +267,7 @@ public class SlideView extends ViewPart {
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
 		bars.getToolBarManager().add(runAction);
+		bars.getToolBarManager().add(pdfAction);
 		bars.getToolBarManager().add(printAction);
 		bars.getToolBarManager().add(refreshAction);
 	}
@@ -260,4 +281,19 @@ public class SlideView extends ViewPart {
 		
 		runner.open();
 	}
+	
+	protected void exportToPdf() {
+		FileDialog dialog = new FileDialog(getSite().getShell(), SWT.SAVE | SWT.SINGLE);
+		dialog.setText("Export to PDF");
+		// TODO provide a default file name
+		if (dialog.open() == null) return;
+		PDFRunner runner = new PDFRunner(getSite().getShell().getDisplay(), resourceManager, template);
+		try {
+			runner.print(deck, dialog.getFileName());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
