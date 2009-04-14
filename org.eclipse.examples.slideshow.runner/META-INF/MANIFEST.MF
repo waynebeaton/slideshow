@@ -5,6 +5,9 @@ Bundle-SymbolicName: org.eclipse.examples.slideshow.runner
 Bundle-Version: 0.2.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: com.ibm.icu.text;version="3.8.1",
+ com.lowagie.text,
+ com.lowagie.text.pdf,
+ org.eclipse.core.runtime,
  org.eclipse.draw2d,
  org.eclipse.draw2d.geometry,
  org.eclipse.draw2d.text,
@@ -14,9 +17,11 @@ Import-Package: com.ibm.icu.text;version="3.8.1",
  org.eclipse.swt.graphics,
  org.eclipse.swt.layout,
  org.eclipse.swt.printing,
- org.eclipse.swt.widgets
+ org.eclipse.swt.widgets,
+ org.osgi.framework;version="1.5.0"
 Export-Package: org.eclipse.examples.slideshow.rendering,
  org.eclipse.examples.slideshow.resources,
  org.eclipse.examples.slideshow.runner,
  org.eclipse.examples.slideshow.templates.eclipse,
  org.eclipse.examples.slideshow.viewer
+Bundle-ActivationPolicy: lazy
