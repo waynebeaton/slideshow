@@ -12,8 +12,6 @@ package org.eclipse.examples.slideshow.ui.views;
 
 import java.io.FileNotFoundException;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.examples.slideshow.core.Slide;
 import org.eclipse.examples.slideshow.core.SlideDeck;
 import org.eclipse.examples.slideshow.resources.ITemplate;
