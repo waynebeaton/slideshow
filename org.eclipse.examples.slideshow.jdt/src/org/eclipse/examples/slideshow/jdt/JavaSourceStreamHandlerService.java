@@ -93,7 +93,10 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 				}
 				
 				String methodName = matcher.group(1);
-				String[] parameters = matcher.group(2).split(",");
+				
+				// Splitting returns an array containing a single empty string if the receiver is empty. See Bug 272381.
+				String allParameters = matcher.group(2);
+				String[] parameters = allParameters.trim().isEmpty() ? new String[0] : allParameters.split(",");
 	
 				// TODO permit user to enter user-sensible parameters, e.g. "String[]" instead of "[QString;"
 				IMethod method = type.getMethod(methodName, parameters);
