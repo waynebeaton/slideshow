@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.examples.slideshow.core;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 public class CodeBlockChunk extends BlockChunk {
 
@@ -23,10 +26,25 @@ public class CodeBlockChunk extends BlockChunk {
 
 	@Override
 	public String getText() {
+		InputStream stream = null;
 		try {
-			return (String) new URL(url).getContent();
+			URLConnection connection = new URL(url).openConnection();
+			stream = connection.getInputStream();
+			StringBuilder builder = new StringBuilder();
+			byte[] buffer = new byte[1024];
+			int count = 0;
+			while ((count = stream.read(buffer)) > 0) {
+				builder.append(new String(buffer, 0, count));
+			}
+			return builder.toString();
 		} catch (Exception e) {
 			return e.getMessage();
+		} finally {
+			try {
+				if (stream != null) stream.close();
+			} catch (IOException e) {
+				// TODO Log this?
+			}
 		}
 		//return "Bad Code URL";
 	}
