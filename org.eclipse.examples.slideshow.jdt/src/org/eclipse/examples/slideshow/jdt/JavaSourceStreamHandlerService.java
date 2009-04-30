@@ -11,9 +11,16 @@
 package org.eclipse.examples.slideshow.jdt;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownServiceException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,9 +46,18 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 	@Override
 	public URLConnection openConnection(URL u) throws IOException {
 		return new URLConnection(u) {
+			private Map<String,List<String>> headers;
+
 			@Override
 			public void connect() throws IOException {
-				
+				headers = new HashMap<String, List<String>>();
+				// TODO Figure out the right MIME Type.
+				headers.put("content-type", Collections.singletonList("x-application/java"));
+			}
+			
+			@Override
+			public Map<String, List<String>> getHeaderFields() {
+				return headers;
 			}
 			
 			@Override
@@ -56,7 +72,11 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 			// TODO Returning error messages intended for the end user in the exception is convenient, but is it correct?
 			// TODO Probably better to return a Document containing formatting
 			@Override
-			public Object getContent() throws IOException {
+			public InputStream getInputStream() throws IOException {
+				return new StringBufferInputStream(getSource());
+			}
+
+			private String getSource() throws IOException {
 				String projectName = getURL().getHost();
 				if (projectName.length() == 0) throw new IOException("Project name must be provided!");
 				
@@ -112,7 +132,7 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 				}
 			}
 
-			private Object getSourceCodeFor(IMethod method)
+			private String getSourceCodeFor(IMethod method)
 					throws JavaModelException, BadLocationException {
 				String source = method.getSource();
 				TextEdit format = ToolFactory.createCodeFormatter(null).format(CodeFormatter.K_UNKNOWN + CodeFormatter.F_INCLUDE_COMMENTS, source, 0, source.length(), 0, null);
