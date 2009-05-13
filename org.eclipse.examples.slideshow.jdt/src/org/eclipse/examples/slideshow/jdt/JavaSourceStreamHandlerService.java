@@ -51,8 +51,8 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 			@Override
 			public void connect() throws IOException {
 				headers = new HashMap<String, List<String>>();
-				// TODO Figure out the right MIME Type.
-				headers.put("content-type", Collections.singletonList("x-application/java"));
+				// TODO Consider adding additional MIME types.
+				headers.put("content-type", Collections.singletonList("text/x-java-source"));
 			}
 			
 			@Override
