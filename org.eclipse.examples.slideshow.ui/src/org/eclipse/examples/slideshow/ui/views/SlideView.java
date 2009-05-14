@@ -283,10 +283,11 @@ public class SlideView extends ViewPart {
 		FileDialog dialog = new FileDialog(getSite().getShell(), SWT.SAVE | SWT.SINGLE);
 		dialog.setText("Export to PDF");
 		// TODO provide a default file name
-		if (dialog.open() == null) return;
+		String pdfFile = dialog.open() ;
+		if (pdfFile == null) return;
 		PDFRunner runner = new PDFRunner(getSite().getShell().getDisplay(), resourceManager, template);
 		try {
-			runner.print(deck, dialog.getFileName());
+			runner.print(deck, pdfFile);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
