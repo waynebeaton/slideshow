@@ -39,6 +39,7 @@ import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.MarkupAttributes;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
@@ -194,8 +195,9 @@ public class PDFGraphics extends Graphics {
 
 	@Override
 	public void drawText(String string, int x, int y) {
-		BaseFont bf = FontFactory.getFont(getState().fontFamily).getBaseFont();
 		float fontHeight = getState().fontHeight * 4 / 3;
+		com.lowagie.text.Font font = FontFactory.getFont(getState().fontFamily, fontHeight, getState().fontStyle);
+		BaseFont bf = font.getBaseFont();
 		
 		contentByte.beginText();
 		contentByte.setColorFill(getState().foregroundColor);
@@ -339,7 +341,11 @@ public class PDFGraphics extends Graphics {
 	public void setFont(Font f) {
 		FontData fontData = f.getFontData()[0];
 		getState().fontFamily = fontData.getName();
-		getState().fontStyle = fontData.getStyle();
+		int style = fontData.getStyle();
+		getState().fontStyle = 0;
+		if ((style & SWT.NORMAL) > 0) getState().fontStyle |= com.lowagie.text.Font.NORMAL;
+		if ((style & SWT.BOLD) > 0) getState().fontStyle |= com.lowagie.text.Font.BOLD;
+		if ((style & SWT.ITALIC) > 0) getState().fontStyle |= com.lowagie.text.Font.ITALIC;
 		getState().fontHeight = fontData.getHeight();
 	}
 
