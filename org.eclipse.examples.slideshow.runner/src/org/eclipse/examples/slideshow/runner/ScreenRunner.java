@@ -85,7 +85,6 @@ public class ScreenRunner {
 					close();
 					break;
 				default:
-					System.out.println(e.keyCode);
 				}
 			}
 		});

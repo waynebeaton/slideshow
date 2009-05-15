@@ -54,14 +54,14 @@ public class URLHandlingTests {
 		
 		project.build(IncrementalProjectBuilder.FULL_BUILD, null);
 		
-		root.accept(new IResourceVisitor() {
-
-			public boolean visit(IResource resource) throws CoreException {
-				System.out.println(resource);
-				return true;
-			}
-			
-		});
+//		root.accept(new IResourceVisitor() {
+//
+//			public boolean visit(IResource resource) throws CoreException {
+//				System.out.println(resource);
+//				return true;
+//			}
+//			
+//		});
 	}
 	
 	@Test
