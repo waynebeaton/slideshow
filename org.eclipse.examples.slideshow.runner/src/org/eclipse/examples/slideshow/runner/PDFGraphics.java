@@ -424,6 +424,5 @@ public class PDFGraphics extends Graphics {
 				return;
 			}
 		}
-		System.out.println(message);
 	}
 }
