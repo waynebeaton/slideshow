@@ -13,7 +13,6 @@ package org.eclipse.examples.slideshow.jdt;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
-import java.io.StringReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.UnknownServiceException;
@@ -116,7 +115,7 @@ public class JavaSourceStreamHandlerService extends AbstractURLStreamHandlerServ
 				
 				// Splitting returns an array containing a single empty string if the receiver is empty. See Bug 272381.
 				String allParameters = matcher.group(2);
-				String[] parameters = allParameters.trim().isEmpty() ? new String[0] : allParameters.split(",");
+				String[] parameters = "".equals(allParameters.trim()) ? new String[0] : allParameters.split(",");
 	
 				// TODO permit user to enter user-sensible parameters, e.g. "String[]" instead of "[QString;"
 				IMethod method = type.getMethod(methodName, parameters);
