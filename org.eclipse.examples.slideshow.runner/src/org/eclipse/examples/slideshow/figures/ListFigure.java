@@ -123,12 +123,17 @@ public class ListFigure extends Figure implements IResizeableFigure {
 	}
 	
 	protected void layoutList(IFigure parent, int depth, ListContent list) {
+		String bullet = "\u2022";
+		int slideNumber = 0;
 		for (IContent item : list.getItems()) {
-			layoutListItem(parent, depth, (ListItemContent)item);
+			if (list.getType() == ListContent.ListType.NUMERIC) {
+				bullet = String.valueOf(++slideNumber) + ".";
+			}
+			layoutListItem(parent, depth, (ListItemContent)item, bullet);
 		}
 	}
 
-	private void layoutListItem(IFigure parent, int depth, ListItemContent item) {
+	private void layoutListItem(IFigure parent, int depth, ListItemContent item, String bulletText) {
 		if (item.hasText()) {
 			// Add some padding to shift us over to the place where the
 			// bullet should be placed.
@@ -144,7 +149,7 @@ public class ListFigure extends Figure implements IResizeableFigure {
 			Font font = getResourceManager().getFont(getFontDescription().sizedBy(scale));
 			
 			// Create the bullet
-			Label bullet = new Label("\u2022");
+			Label bullet = new Label(bulletText);
 			bullet.setFont(font);
 			parent.getLayoutManager().setConstraint(bullet, new GridData(SWT.RIGHT, SWT.TOP, false, false));
 			parent.add(bullet);
