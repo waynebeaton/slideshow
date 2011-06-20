@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.examples.slideshow.feature"
+      label="Slideshow Feature"
+      version="0.2.0.qualifier"
+      license-feature="org.eclipse.platform"
+      license-feature-version="3.7.0.qualifier">
+
+   <description url="http://eclipse.org/examples/example.php?id=slideshow">
+      Eclipse Slideshow is an experiment in presentation simplicity. It separates content generation from presentation. As a content producer, you provide content in a wiki format; Slideshow uses that content to generate the best slides it can muster. It automatically positions graphics based on dimensions and makes text and other elements fit in the space provided.
+
+You edit the content using MediaWiki format (the same format that we use on Eclipsepedia) and it renders in a view. As shown in the demo below, you can present full screen by clicking a button on the view. While intended as a demo, Slideshow has been used for real presentations at Eclipse Summit Europe, and other events.
+   </description>
+
+   <copyright url="http://eclipse.org/examples/example.php?id=slideshow">
+      Copyright (c) 2008, 2011 The Eclipse Foundation.
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License
+v1.0 which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.jobs"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="com.lowagie.text"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.examples.slideshow.core" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylyn.wikitext.core"/>
+      <import plugin="org.eclipse.mylyn.wikitext.mediawiki.core"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.examples.slideshow.text" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.examples.slideshow.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.examples.slideshow.jdt"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.examples.slideshow.runner"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.examples.slideshow.text"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.examples.slideshow.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
