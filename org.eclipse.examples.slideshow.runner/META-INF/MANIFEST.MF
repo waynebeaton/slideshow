@@ -4,9 +4,8 @@ Bundle-Name: Slideshow Runner Plug-in
 Bundle-SymbolicName: org.eclipse.examples.slideshow.runner
 Bundle-Version: 0.2.0.qualifier
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Import-Package: com.ibm.icu.text;version="3.8.1",
- com.lowagie.text,
- com.lowagie.text.pdf,
+Import-Package: com.lowagie.text;version="[2.1.0,3.0.0)",
+ com.lowagie.text.pdf;version="[2.1.0,3.0.0)",
  org.eclipse.core.runtime,
  org.eclipse.draw2d,
  org.eclipse.draw2d.geometry,
