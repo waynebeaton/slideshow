@@ -1,17 +1,17 @@
 /*******************************************************************************
- * Copyright (c) 2009 The Eclipse Foundation.
+ * Copyright (c) 2009, 2011 The Eclipse Foundation.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *    The Eclipse Foundation - initial API and implementation
+ *    Wayne Beaton - initial API and implementation
+ *    Wayne Beaton - Bug 349829
  *******************************************************************************/
 package org.eclipse.examples.slideshow.runner;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,7 +39,6 @@ import com.lowagie.text.BadElementException;
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.FontFactory;
-import com.lowagie.text.MarkupAttributes;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
@@ -140,7 +139,7 @@ public class PDFGraphics extends Graphics {
 		
 		try {
 			com.lowagie.text.Image image = com.lowagie.text.Image.getInstance(file.getAbsolutePath());
-			contentByte.addImage(image, w2,0,0,h2, x2+getState().dx, document.getPageSize().height() - (y2+getState().dy + h2), true);
+			contentByte.addImage(image, w2,0,0,h2, x2+getState().dx, document.getPageSize().getHeight() - (y2+getState().dy + h2), true);
 		} catch (BadElementException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,7 +178,7 @@ public class PDFGraphics extends Graphics {
 	@Override
 	public void drawRectangle(int x, int y, int width, int height) {
 		contentByte.setLineWidth(getState().lineWidth);
-		contentByte.rectangle(x+getState().dx, document.getPageSize().height()-(y+getState().dy), width, -height);
+		contentByte.rectangle(x+getState().dx, document.getPageSize().getHeight()-(y+getState().dy), width, -height);
 		contentByte.stroke();
 	}
 
@@ -202,7 +201,7 @@ public class PDFGraphics extends Graphics {
 		contentByte.beginText();
 		contentByte.setColorFill(getState().foregroundColor);
 		contentByte.setFontAndSize(bf, fontHeight);
-		contentByte.setTextMatrix(x+getState().dx, document.getPageSize().height() - (y+getState().dy));
+		contentByte.setTextMatrix(x+getState().dx, document.getPageSize().getHeight() - (y+getState().dy));
 		contentByte.showText(string);
 		contentByte.endText();
 	}
@@ -250,10 +249,10 @@ public class PDFGraphics extends Graphics {
 	@Override
 	public Rectangle getClip(Rectangle rect) {
 		com.lowagie.text.Rectangle pageSize = document.getPageSize();
-		rect.x = (int) pageSize.left();
+		rect.x = (int) pageSize.getLeft();
 		rect.y = 0; //(int) pageSize.top();
-		rect.width = (int) pageSize.width();
-		rect.height = (int) pageSize.height();		
+		rect.width = (int) pageSize.getWidth();
+		rect.height = (int) pageSize.getHeight();		
 		
 		return rect;
 	}
