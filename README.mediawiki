@@ -1,5 +1,12 @@
-Eclipse Slideshow is an experiment in presentation simplicity. It separates content generation from presentation. As a content producer, you provide content in a wiki format; Slideshow uses that content to generate the best slides it can muster. It automatically positions graphics based on dimensions and makes text and other elements fit in the space provided.
+Eclipse Slideshow is an experiment in presentation simplicity. It separates content generation 
+from presentation. As a content producer, you provide content in a wiki format; Slideshow uses 
+that content to generate the best slides it can muster. It automatically positions graphics 
+based on dimensions and makes text and other elements fit in the space provided.
 
 [[Image:/waynebeaton/slideshow/raw/master/images/content.png]]
 
-You edit the content using MediaWiki format (the same format that we use on Eclipsepedia) and it renders in a view. As shown in the demo below, you can present full screen by clicking a button on the view. While intended as a demo, Slideshow has been used for real presentations at Eclipse Summit Europe, and other events.
+
+You edit the content using MediaWiki format (the same format that we use on Eclipsepedia) 
+and it renders in a view. As shown in the demo below, you can present full screen by clicking 
+a button on the view. While intended as a demo, Slideshow has been used for real presentations 
+at Eclipse Summit Europe, and other events.
