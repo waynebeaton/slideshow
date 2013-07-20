@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.examples.slideshow.feature_0.2.0.qualifier.jar" id="org.eclipse.examples.slideshow.feature" version="0.2.0.qualifier">
+      <category name="slideshow"/>
+   </feature>
+   <category-def name="slideshow" label="Elclipse Slideshow">
+      <description>
+         Eclipse Slideshow Feature
+      </description>
+   </category-def>
+</site>

@@ -3,7 +3,7 @@ from presentation. As a content producer, you provide content in a wiki format; 
 that content to generate the best slides it can muster. It automatically positions graphics 
 based on dimensions and makes text and other elements fit in the space provided.
 
-[[Image:/waynebeaton/slideshow/raw/master/images/content.png]]
+[[File:images/content.png]]
 
 
 You edit the content using MediaWiki format (the same format that we use on Eclipsepedia) 
