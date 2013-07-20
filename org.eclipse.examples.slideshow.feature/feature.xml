@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.examples.slideshow.feature"
-      label="Slideshow Feature"
+      label="Eclipse Slideshow Feature"
       version="0.2.0.qualifier"
       license-feature="org.eclipse.platform"
-      license-feature-version="3.7.0.qualifier">
+      license-feature-version="4.2.1.qualifier">
 
    <description url="http://eclipse.org/examples/example.php?id=slideshow">
       Eclipse Slideshow is an experiment in presentation simplicity. It separates content generation from presentation. As a content producer, you provide content in a wiki format; Slideshow uses that content to generate the best slides it can muster. It automatically positions graphics based on dimensions and makes text and other elements fit in the space provided.

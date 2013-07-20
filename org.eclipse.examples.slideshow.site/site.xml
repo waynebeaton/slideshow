@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description>
+      Update Site of Eclipse Slideshow
+   </description>
+   <feature url="features/org.eclipse.examples.slideshow.feature_0.2.0.201307140026.jar" id="org.eclipse.examples.slideshow.feature" version="0.2.0.201307140026">
+      <category name="slideshow"/>
+   </feature>
+   <category-def name="slideshow" label="Eclipse Slideshow">
+      <description>
+         Distribution of waynebeaton&apos;s slideshow project.
+      </description>
+   </category-def>
+</site>
